@@ -7,26 +7,30 @@ import VisuallyHidden from '../VisuallyHidden';
 
 const SIZES = {
   small: {
-    '--height': '8px'
+    height: 8,
+    padding: 0,
   },
   medium: {
-    '--height': '12px'
+    height: 12,
+    padding: 0,
   },
   large: {
-    '--height': '24px'
+    height: 24,
+    padding: 4,
   },
 };
 
 const ProgressBar = ({ value, size }) => {
   return( 
-    <Wrapper>
+    <Wrapper
+      style={{ '--padding': `${SIZES[size].padding}px`}}
+      >
       <Inner 
         role="progressbar"
         aria-valuenow={value}
         aria-valuemin="0"
         aria-valuemax="100"
-        value={value}
-        style={SIZES[size]}
+        style={{ '--height': `${SIZES[size].height}px`, '--width': `${value}%`}}
         />
       <VisuallyHidden>The progressbar value is {value}%</VisuallyHidden>
     </Wrapper>
@@ -37,13 +41,14 @@ const Wrapper = styled.div`
   background: ${COLORS.transparentGray15};
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   border-radius: 8px;
-  padding: 4px;
+  overflow: hidden;
+  padding: var(--padding);
 `;
 
 const Inner = styled.div`
   background: ${COLORS.primary};
   height: var(--height);
-  width: ${p =>  p.value > 100 ? '100%' : `${p.value}%`};
+  width: var(--width);
   border-radius: ${p =>  p.value >= 100? '4px' : '4px 0px 0px 4px'} ;
 `;
 
