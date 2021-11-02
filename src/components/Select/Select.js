@@ -40,7 +40,6 @@ const NativeSelect = styled.select`
 `;
 
 const PresentationSelect = styled.div`
-  position: relative;
   background: ${COLORS.transparentGray15};
   color: ${COLORS.gray700};
   border-radius: 8px;
@@ -65,6 +64,7 @@ const IconWrapper = styled.div`
   bottom: 0;
   margin: auto;
   right: 16px;
+  pointer-events: none;
 `;
 
 export default Select;
