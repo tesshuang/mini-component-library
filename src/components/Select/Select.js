@@ -46,13 +46,13 @@ const PresentationSelect = styled.div`
   padding: 12px 16px;
   padding-right: 52px;
 
-  ${NativeSelect}:hover + & {
+  ${NativeSelect}:focus + & {
     outline: 1px dotted #212121;
     outline: 5px auto -webkit-focus-ring-color;
   }
 
-  ${NativeSelect}:focus + & {
-    border: 5px auto 
+  ${NativeSelect}:hover + & {
+    color: ${COLORS.black};
   }
 `;
 
@@ -63,7 +63,7 @@ const IconWrapper = styled.div`
   top: 0;
   bottom: 0;
   margin: auto;
-  right: 16px;
+  right: 10px;
   pointer-events: none;
 `;
 
