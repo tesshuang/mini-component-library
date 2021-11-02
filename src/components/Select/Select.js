@@ -9,35 +9,62 @@ const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
   return (
-    <Wrapper value={value} onChange={onChange}>
-      {children}
+    <Wrapper>
+      <NativeSelect value={value} onChange={onChange}>
+        {children}
+      </NativeSelect>
+      <PresentationSelect>
+        {displayedValue}
+        <IconWrapper style={{ '--size':  `24px`}}>
+          <Icon id="chevron-down" size="24" />
+        </IconWrapper>
+      </PresentationSelect>
     </Wrapper>
+    
   );
 };
 
-const Wrapper = styled.select`
+const Wrapper = styled.div`
+  position: relative;
+  width: max-content;
+`;
+
+const NativeSelect = styled.select`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  -webkit-appearance: none;
+`;
+
+const PresentationSelect = styled.div`
+  position: relative;
   background: ${COLORS.transparentGray15};
   color: ${COLORS.gray700};
   border-radius: 8px;
-  border:none;
-  appearance: none;
-  -webkit-appearance: none;
   padding: 12px 16px;
+  padding-right: 52px;
 
-  &:hover {
-    color: ${COLORS.black};
+  ${NativeSelect}:hover + & {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
   }
 
-  &::after {
-    content: ${<Icon id="chevron-down" size="12" />};
-    /* content: '◀'; */
-    margin-right: 16px;
+  ${NativeSelect}:focus + & {
+    border: 5px auto 
   }
 `;
 
 const IconWrapper = styled.div`
   position: absolute;
-    right: 16px;
+  width: var(--size);
+  height: var(--size);
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 16px;
 `;
 
 export default Select;
