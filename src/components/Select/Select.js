@@ -9,10 +9,35 @@ const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
   return (
-    <select value={value} onChange={onChange}>
+    <Wrapper value={value} onChange={onChange}>
       {children}
-    </select>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.select`
+  background: ${COLORS.transparentGray15};
+  color: ${COLORS.gray700};
+  border-radius: 8px;
+  border:none;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 12px 16px;
+
+  &:hover {
+    color: ${COLORS.black};
+  }
+
+  &::after {
+    content: ${<Icon id="chevron-down" size="12" />};
+    /* content: '◀'; */
+    margin-right: 16px;
+  }
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+    right: 16px;
+`;
 
 export default Select;
