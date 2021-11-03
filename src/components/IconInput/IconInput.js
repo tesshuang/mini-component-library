@@ -10,12 +10,14 @@ const SIZES = {
   small: {
     iconSize: 16,
     fontSize: 14,
-    paddingBottom: 4,
+    height: 24,
+    borderThickness: 1,
   },
   large: {
     iconSize: 24,
     fontSize: 18,
-    paddingBottom: 6,
+    height: 36,
+    borderThickness: 2,
   },
 }
 
@@ -26,18 +28,20 @@ const IconInput = ({
   size,
   placeholder,
 }) => {
+  const styles = SIZES[size];
   return (
-    <Wrapper
-      width={width}
-      style={{ '--paddingBottom':  `${SIZES[size].paddingBottom}px`}}>
-      <IconWrapper style={{ '--size':  `${SIZES[size].iconSize}px`}}>
-        <Icon id={icon} size={SIZES[size].iconSize} />
+    <Wrapper>
+      <IconWrapper style={{ '--size':  `${styles.iconSize}px`}}>
+        <Icon id={icon} size={styles.iconSize} />
       </IconWrapper>
       <TextInput 
         placeholder={placeholder}
         style={{ 
-          '--paddingLeft': SIZES[size].iconSize + 6 + 'px',
-          '--font': `${SIZES[size].fontSize}px`
+          '--paddingLeft': styles.iconSize + 6 + 'px',
+          '--font': `${styles.fontSize}px`,
+          '--width': `${width}px`,
+          '--height': `${styles.height}px`,
+          '--borderThickness': `${styles.borderThickness}px`,
         }}
       />
       <VisuallyHidden>{label}</VisuallyHidden>
@@ -45,32 +49,37 @@ const IconInput = ({
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.label`
+  display: block;
   position: relative;
-  border-bottom: 2px solid ${COLORS.black};
-  width: ${p => p.width}px;
-  padding-bottom: var(--paddingBottom);
+  color: ${COLORS.gray700};
 
-  &:focus-within {
-    outline: 1px dotted #212121;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: 2px;
+  &:hover {
+    color: ${COLORS.black};
   }
 `;
 
 const IconWrapper = styled.div`
   position: absolute;
   top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: var(--size);
 `;
 
 const TextInput = styled.input`
-  width: 100%;
+  width: var(--width);
+  height: var(--height);
   border: none;
+  border-bottom: var(--borderThickness) solid ${COLORS.black};
   padding-left: var(--paddingLeft);
+  color: inherit;
   font-size: var(--font);
+  font-weight: 700;
 
-  &:focus {
-    outline: none;
+  &::placeholder {
+    font-weight: 400;
+    color: ${COLORS.gray500};
   }
 `;
 
