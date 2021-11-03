@@ -10,10 +10,12 @@ const SIZES = {
   small: {
     iconSize: 16,
     fontSize: 14,
+    paddingBottom: 4,
   },
   large: {
     iconSize: 24,
     fontSize: 18,
+    paddingBottom: 6,
   },
 }
 
@@ -25,14 +27,16 @@ const IconInput = ({
   placeholder,
 }) => {
   return (
-    <Wrapper width={width}>
+    <Wrapper
+      width={width}
+      style={{ '--paddingBottom':  `${SIZES[size].paddingBottom}px`}}>
       <IconWrapper style={{ '--size':  `${SIZES[size].iconSize}px`}}>
         <Icon id={icon} size={SIZES[size].iconSize} />
       </IconWrapper>
       <TextInput 
         placeholder={placeholder}
         style={{ 
-          '--padding': SIZES[size].iconSize + 6 + 'px',
+          '--paddingLeft': SIZES[size].iconSize + 6 + 'px',
           '--font': `${SIZES[size].fontSize}px`
         }}
       />
@@ -45,24 +49,29 @@ const Wrapper = styled.div`
   position: relative;
   border-bottom: 2px solid ${COLORS.black};
   width: ${p => p.width}px;
-  padding-bottom: 4px;
+  padding-bottom: var(--paddingBottom);
+
+  &:focus-within {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: 2px;
+  }
 `;
 
 const IconWrapper = styled.div`
   position: absolute;
-  left: 0;
   top: 0;
-  bottom: 0;
-  margin: auto;
-  width: var(--size);
-  height: var(--size);
 `;
 
 const TextInput = styled.input`
   width: 100%;
   border: none;
-  padding-left: var(--padding);
+  padding-left: var(--paddingLeft);
   font-size: var(--font);
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default IconInput;
